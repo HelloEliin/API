@@ -104,7 +104,7 @@ class apiController extends Controller
         }
 
 
-        if ($text !== 'null' && $textColor !== 'black') {
+        if ($text !== null && $textColor !== 'black') {
             $box->setFontColor(new Color(255, 255, 255));
         } else {
             $box->setFontColor(new Color(0, 0, 0));
