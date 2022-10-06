@@ -15,8 +15,8 @@ class apiController extends Controller
 
 
     /* Du måste välja:
-    - Bredd (endast heltal)
-    - Höjd (endast heltal)
+    - Bredd 
+    - Höjd 
     - En bild 
     
     Väljer du ej position på loggan (top-right/top-left, bottom-left/right)
