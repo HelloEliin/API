@@ -15,8 +15,8 @@ class apiController extends Controller
 
 
     /* Du måste välja:
-    - Bredd
-    - Höjd
+    - Bredd (endast heltal)
+    - Höjd (endast heltal)
     - En bild 
     
     Väljer du ej position på loggan (top-right/top-left, bottom-left/right)
@@ -72,10 +72,20 @@ class apiController extends Controller
         }
 
 
-        if ($error !== null) {
+        if(!is_numeric($fontSize) && $fontSize != null)
+        {
+            array_push($error, 'FontSize has to be numeric.');
+        }
+
+        if ($error != null) {
                 return response()->json(['Error' => $error], 400);
             }
-        
+
+
+        $width = (int)$width;
+        $height = (int)$height;
+
+     
 
 
     
@@ -118,6 +128,7 @@ class apiController extends Controller
         } else {
             $box->setFontSize(32);
         }
+      
 
 
         $box->draw($text);
@@ -132,3 +143,4 @@ class apiController extends Controller
         ]);
     }
 }
+
