@@ -50,15 +50,16 @@ class apiController extends Controller
         $brightness = $request->brightness;
         $fontSize = $request->fontSize;
         $boxWidth = $request->boxWidth;
-        $textBoxPosition = ($width - $boxWidth) / 2;
+        $error = [];
+       
 
         $image = $request->photo;
 
-        $error = [];
+        
 
 
         if ($image === null) {
-            //return response()->json(['error'=>'You have to choose a image.'],400);
+            
             array_push($error, 'Choose image.');
         }
 
@@ -67,16 +68,17 @@ class apiController extends Controller
         }
 
         if ($boxWidth > $width) {
-            array_push($error, 'BoxWidth cannot be bigger than width.');
+            array_push($error, 'BoxWidth cannot be higher than width.');
         }
 
 
         if ($error !== null) {
-            foreach ($error as $error) {
                 return response()->json(['Error' => $error], 400);
             }
-        }
+        
 
+
+    
         $image->storeAs('public', $image->getClientOriginalName());
         $img = Image::make(storage_path('app/public') . '/' . $image->getClientOriginalName());
         $img->fit($width, $height);
@@ -92,6 +94,7 @@ class apiController extends Controller
         }
 
 
+        $textBoxPosition = ($width - $boxWidth) / 2;
         $coreImage = $img->getCore();
         $box = new Box($coreImage);
         $box->setBox($textBoxPosition, null, $boxWidth, $height);
